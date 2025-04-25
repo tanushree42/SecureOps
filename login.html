@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureOps Login</title>
+  <link rel="stylesheet" href="login.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<!-- Add these before any of your own scripts -->
+
+<body>
+
+  <!-- Particle background -->
+  <div id="particles-js"></div>
+
+  <div class="container">
+    <div class="login-wrapper">
+      <!-- Welcome Message -->
+      <div class="welcome-card">
+        <h2>Welcome back<br><strong>to SecureOps.</strong></h2>
+        <div class="social-icons">
+          <i class="fab fa-linkedin"></i>
+          <i class="fab fa-github"></i>
+          <i class="fab fa-twitter"></i>
+        </div>
+      </div>
+
+      <!-- Login Card -->
+      <div class="glass login-card">
+        <!-- keep your actual logo here -->
+        <img src="logo.png" alt="SecureOps Logo" class="logo" />
+
+
+        <h2>Welcome Back 👋</h2>
+        <p>Please log in to your account</p>
+        <form id="login-form">
+          <input id="email" type="email" placeholder="Email address" required />
+          <input id="password" type="password" placeholder="Password" required />
+          <button type="submit">Login</button>
+          <div class="form-links">
+            <a href="forgot-password.html">Forgot password?</a>
+            <a href="signup.html">Don’t have an account?</a>
+          </div>
+        </form>
+      </div>
+
+
+
+      <!-- Particle JS -->
+      <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+      <script>
+        particlesJS("particles-js", {
+          "particles": {
+            "number": {
+              "value": 100,
+              "density": { "enable": true, "value_area": 800 }
+            },
+            "color": { "value": "#ffffff" },
+            "shape": {
+              "type": "circle",
+              "stroke": { "width": 0, "color": "#000000" }
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": true
+            },
+            "size": {
+              "value": 2.5,
+              "random": true
+            },
+            "move": {
+              "enable": true,
+              "speed": 0.8,
+              "direction": "none",
+              "out_mode": "out"
+            }
+          },
+          "interactivity": {
+            "events": {
+              "onhover": { "enable": true, "mode": "repulse" }
+            },
+            "modes": {
+              "repulse": { "distance": 50 }
+            }
+          },
+          "retina_detect": true
+        });
+      </script>
+
+      <!-- just before </body> -->
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import {
+          getAuth,
+          signInWithEmailAndPassword,
+          signOut
+        } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+        // 1️⃣ Initialize Firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyChl0Yptr0Fw7o7lBMOZTg3yjPRD6nfEZs",
+          authDomain: "ops-e4746.firebaseapp.com",
+          projectId: "ops-e4746",
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // 2️⃣ Hook up the form
+        const form = document.getElementById("login-form");
+        form.addEventListener("submit", async e => {
+          e.preventDefault();
+          const email = form.email.value.trim();
+          const pass = form.password.value;
+
+          try {
+            // A) Sign in and get the user object
+            const { user } = await signInWithEmailAndPassword(auth, email, pass);
+
+            // B) Refresh the user to get the latest emailVerified flag
+            await user.reload();
+
+            // C) If not verified, block access
+            if (!user.emailVerified) {
+              alert("⚠️ Please verify your email before logging in. Check your inbox!");
+              await signOut(auth);
+              return;
+            }
+
+            // D) Verified → send them to the dashboard
+            window.location.href = "dashboard.html";
+
+          } catch (err) {
+            console.error(err);
+            alert(err.message);
+          }
+        });
+      </script>
+
+</body>
+
+</html>

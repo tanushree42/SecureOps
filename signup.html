@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureOps Login</title>
+  <link rel="stylesheet" href="signup.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<!-- Add these before any of your own scripts -->
+
+
+<body>
+
+  <!-- Particle background -->
+  <div id="particles-js"></div>
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="brand">
+      <img src="logo.png" alt="SecureOps Logo" class="brand-logo" />
+      <h1>SecureOps</h1>
+    </div>
+    <div class="pop-words">
+      <span class="pop-word">Smart</span>
+      <span class="pop-word">Secure</span>
+      <span class="pop-word">Streamlined</span>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="login-wrapper">
+
+
+      <!-- Login Card -->
+      <div class="glass login-card">
+        <!-- keep your actual logo here -->
+        <img src="logo.png" alt="SecureOps Logo" class="logo" />
+
+
+        <h2>Create Account 👤</h2>
+        <p>Please fill in your details</p>
+        <form id="signup-form">
+          <input id="first-name" name="first-name" type="text" placeholder="First name" required />
+          <input id="last-name" name="last-name" type="text" placeholder="Last name" required />
+          <input id="email" type="email" placeholder="Email address" required />
+          <input id="password" type="password" placeholder="Password" required />
+          <button type="submit">Register</button>
+
+          <div class="form-links">
+            <a href="forgot-password.html">Forgot password?</a>
+            <a href="login.html">Already have an account?</a>
+          </div>
+        </form>
+
+      </div>
+
+
+
+      <!-- Particle JS -->
+      <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+      <script>
+        particlesJS("particles-js", {
+          "particles": {
+            "number": {
+              "value": 100,
+              "density": { "enable": true, "value_area": 800 }
+            },
+            "color": { "value": "#ffffff" },
+            "shape": {
+              "type": "circle",
+              "stroke": { "width": 0, "color": "#000000" }
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": true
+            },
+            "size": {
+              "value": 2.5,
+              "random": true
+            },
+            "move": {
+              "enable": true,
+              "speed": 0.8,
+              "direction": "none",
+              "out_mode": "out"
+            }
+          },
+          "interactivity": {
+            "events": {
+              "onhover": { "enable": true, "mode": "repulse" }
+            },
+            "modes": {
+              "repulse": { "distance": 50 }
+            }
+          },
+          "retina_detect": true
+        });
+      </script>
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import {
+          getAuth,
+          createUserWithEmailAndPassword,
+          sendEmailVerification,
+          updateProfile      // ← import this
+        } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyChl0Yptr0Fw7o7lBMOZTg3yjPRD6nfEZs",
+          authDomain: "ops-e4746.firebaseapp.com",
+          projectId: "ops-e4746",
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const form = document.getElementById("signup-form");
+        form.addEventListener("submit", async e => {
+          e.preventDefault();
+          const first = form["first-name"].value.trim();
+          const last = form["last-name"].value.trim();
+          const email = form.email.value.trim();
+          const pass = form.password.value;
+
+          if (!first || !last || !email || !pass) {
+            return alert("Please fill out all fields.");
+          }
+
+          try {
+            // 1) Create the user
+            const { user } = await createUserWithEmailAndPassword(auth, email, pass);
+
+            // 2) **Set** their displayName
+            await updateProfile(user, {
+              displayName: `${first} ${last}`
+            });
+
+            // 3) Send verification email
+            await sendEmailVerification(user);
+            alert("✅ Registration successful! Verification email sent.");
+
+            // 4) Redirect to login
+            window.location.href = "login.html";
+
+          } catch (err) {
+            console.error(err);
+            // …your existing error handling…
+          }
+        });
+      </script>
+
+</body>
+
+</html>

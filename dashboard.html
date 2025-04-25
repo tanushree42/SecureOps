@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureOps – Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <div class="dashboard-wrapper d-flex">
+    <!-- Sidebar -->
+    <aside class="sidebar p-4">
+      <h4 class="text-dark mb-4"><i class="fas fa-shield-alt me-2"></i>SecureOps</h4>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-home me-2"></i>Dashboard</a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-tasks me-2"></i>Tasks</a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt me-2"></i>Files</a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user-shield me-2"></i>Access</a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-arrow-left me-2"></i>Logout</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Area -->
+    <div class="main-area flex-grow-1">
+      <!-- Top Navbar -->
+      <nav class="navbar navbar-light topbar px-4 py-3">
+        <span class="navbar-text" id="welcome-text">Welcome!</span>
+        <div class="d-flex align-items-center">
+          <!-- Settings -->
+          <button class="btn btn-outline-light border-0 me-2" title="Settings">
+            <i class="fas fa-cog fs-5"></i>
+          </button>
+
+          <!-- Profile -->
+          <button type="button" id="profile-btn" class="btn btn-outline-light border-0" title="Your Profile">
+            <i class="fas fa-user-circle fs-5"></i>
+          </button>
+
+        </div>
+      </nav>
+      <!-- Slide-out profile sidebar -->
+      <aside id="profile-sidebar" class="profile-sidebar">
+        <div class="sidebar-header">
+          <h5>Your Profile</h5>
+          <button id="close-profile" class="close-btn">&times;</button>
+        </div>
+        <div class="sidebar-content">
+          <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input id="pf-first" class="form-control" type="text" placeholder="First Name" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input id="pf-last" class="form-control" type="text" placeholder="Last Name" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input id="pf-email" class="form-control-plaintext" type="email" disabled />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input id="pf-phone" class="form-control" type="tel" placeholder="Enter phone number" />
+          </div>
+          <button id="save-profile" class="btn btn-primary w-100">Save</button>
+        </div>
+      </aside>
+
+
+      <!-- Transparent Glass Content -->
+      <section class="main-content glass-white p-5 m-4">
+        <h1>Dashboard Overview</h1>
+        <p>Let’s build magic here...</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100 },
+        size: { value: 2 },
+        color: { value: "#76a8f7" },
+        move: { speed: 0.5 },
+        opacity: { value: 0.4 },
+        line_linked: { enable: false }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: false },
+          onclick: { enable: false }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+  <script type="module" src="dashboard.js"></script>
+
+</body>
+
+</html>

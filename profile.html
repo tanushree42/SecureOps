@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureOps • Profile</title>
+    <link rel="stylesheet" href="login.css" />
+</head>
+
+<body>
+    <div class="glass login-card">
+        <h2>Your Profile</h2>
+        <form id="profile-form">
+            <label>
+                Display Name
+                <input id="displayName" type="text" placeholder="Display Name" required />
+            </label>
+            <label>
+                Email
+                <input id="email" type="email" disabled />
+            </label>
+            <label>
+                Photo URL
+                <input id="photoURL" type="url" placeholder="https://..." />
+            </label>
+            <div class="form-actions">
+                <button type="submit">Save Changes</button>
+                <button type="button" id="signout">Sign Out</button>
+            </div>
+            <p id="msg" class="small-text"></p>
+        </form>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            updateProfile,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            setDoc
+        } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyChl0Yptr0Fw7o7lBMOZTg3yjPRD6nfEZs",
+            authDomain: "ops-e4746.firebaseapp.com",
+            projectId: "ops-e4746"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const form = document.getElementById("profile-form");
+        const nameIn = document.getElementById("displayName");
+        const emailIn = document.getElementById("email");
+        const photoIn = document.getElementById("photoURL");
+        const msg = document.getElementById("msg");
+        const signoutBtn = document.getElementById("signout");
+
+        // Load user profile on auth state change
+        onAuthStateChanged(auth, async user => {
+            if (!user) {
+                return window.location.href = "login.html";
+            }
+            await user.reload();
+
+            // Populate fields
+            nameIn.value = user.displayName || "";
+            emailIn.value = user.email || "";
+            photoIn.value = user.photoURL || "";
+
+            // Optional: load extra fields from Firestore
+            const userDoc = doc(db, "users", user.uid);
+            const snap = await getDoc(userDoc);
+            if (snap.exists()) {
+                // e.g., const data = snap.data();
+                // populate other fields if needed
+            }
+        });
+
+        // Save profile updates
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
+            msg.textContent = "";
+            try {
+                await updateProfile(auth.currentUser, {
+                    displayName: nameIn.value.trim(),
+                    photoURL: photoIn.value.trim() || null
+                });
+                // Optional: save extra fields in Firestore
+                await setDoc(doc(db, "users", auth.currentUser.uid), {
+                    updatedAt: new Date()
+                }, { merge: true });
+
+                msg.style.color = "green";
+                msg.textContent = "Profile updated successfully!";
+            } catch (err) {
+                msg.style.color = "red";
+                msg.textContent = "Error: " + err.message;
+            }
+        });
+
+        // Sign out
+        signoutBtn.addEventListener("click", async () => {
+            await signOut(auth);
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+
+</html>
