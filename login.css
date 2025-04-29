@@ -1,0 +1,184 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0c19;
+    height: 100vh;
+    overflow: auto;
+    position: relative;
+}
+
+/* Particle container */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Ensure content stays above the particles */
+.container,
+.glass,
+.welcome-card {
+    position: relative;
+    z-index: 1;
+}
+
+/* Layout */
+.container {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+}
+
+/* Welcome message box */
+.welcome-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2.5rem;
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+}
+
+.welcome-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.social-icons i {
+    font-size: 1.5rem;
+    margin: 0 10px;
+    color: #ccc;
+}
+
+.glass .logo {
+    width: 150px;
+    margin: 0 auto 1rem;
+    display: block;
+}
+
+.glass h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.glass p {
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    color: #ccc;
+}
+
+.glass input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.glass button {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(90deg, #6a9cf8, #39e4c0);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.glass .form-links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.glass .form-links a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.glass .form-links a:hover {
+    text-decoration: underline;
+}
+
+/* Glassmorphic login card */
+.glass {
+    background: rgba(255, 255, 255, 0.15);
+    /* Translucent white */
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    width: 220px;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.25);
+    color: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ─────────────────────────────────────────
+   Short & Wide Glass Card Override
+   ───────────────────────────────────────── */
+.glass {
+    width: 360px !important;
+    /* much wider */
+    padding: 0.8rem 2rem !important;
+    /* shallow top/bottom, generous sides */
+    background: rgba(220, 220, 220, 0.2) !important;
+    border-radius: 12px !important;
+}
+
+/* shrink the logo spacing */
+.glass .logo {
+    width: 100px !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* tighter title & subtitle */
+.glass h2 {
+    font-size: 1.4rem !important;
+    margin-bottom: 0.3rem !important;
+    color: #fff !important;
+}
+
+.glass p {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* inputs & button closer together */
+.glass input,
+.glass button {
+    margin-bottom: 0.5rem !important;
+    padding: 0.6rem !important;
+}
+
+/* links hugged at bottom */
+.glass .form-links {
+    margin-top: 0.3rem !important;
+    font-size: 0.8rem !important;
+}

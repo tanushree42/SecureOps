@@ -1,0 +1,16 @@
+# Node modules (if you ever have one)
+node_modules/
+
+# Firebase local config (if any)
+.firebase/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# Log files
+*.log

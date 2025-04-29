@@ -1,0 +1,149 @@
+/* 1) Reset & Base */
+/* Reset for common elements */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  overflow-x: hidden;
+  background: #0a0c19;
+  color: #fff;
+  position: relative;
+}
+
+/* 2) Particles behind everything */
+.particles-bg {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index: 0;
+}
+
+/* 3) Glass panels */
+:root {
+  --glass-bg: rgba(25,28,48,0.25);
+  --radius: 1rem;
+  --shadow: 0 8px 32px rgba(0,0,0,0.2);
+  --transition: 0.4s ease;
+}
+.glass, .glass-nav, .features-panel, .hero-panel, .glass-footer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 2;
+}
+
+/* 4) Navbar */
+.glass-nav { margin:1rem; }
+
+/* ✅ Navbar text visible in both themes */
+[data-bs-theme="light"] .glass .nav-link,
+[data-bs-theme="light"] .glass .navbar-brand {
+  color: #ffffff !important;
+}
+[data-bs-theme="dark"] .glass .nav-link,
+[data-bs-theme="dark"] .glass .navbar-brand {
+  color: #ffffff !important;
+}
+[data-bs-theme="dark"] .glass .nav-link:hover {
+  color: #00bfff !important;
+}
+[data-bs-theme="dark"] .glass .navbar-brand strong {
+  color: #ffffff !important;
+}
+
+/* 5) Hero */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:2rem 1rem;
+}
+.hero-illustration {
+  position: absolute;
+  right: 5%;
+  bottom: 0;
+  width: 450px;
+  max-width: 100%;
+  animation: float 6s ease-in-out infinite;
+  opacity: 1; /* Make it fully visible */
+  z-index: 2; /* Above background but below text box */
+}
+
+
+/* 6) Features */
+.features-panel {
+  max-width:900px;
+  margin:0 auto 2rem;
+  padding:2rem;
+}
+
+/* 7) Cards */
+/* Feature card structure */
+.feature-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+  height: 260px; /* fix height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+/* Ensure only text is overridden — icons stay colored */
+.feature-card h5,
+.feature-card p {
+  color: #fff !important;
+}
+
+/* 8) Buttons */
+.btn-gradient {
+  display:inline-block;
+  padding:0.8rem 2rem;
+  border:none;
+  border-radius:var(--radius);
+  background: linear-gradient(135deg,#6f76ff,#42e695);
+  color:#fff; font-weight:600;
+  transition: var(--transition);
+  position: relative;
+  text-decoration: none;
+}
+.btn-gradient:hover {
+  background: linear-gradient(135deg,#ff6a88,#ff99ac);
+  transform: translateY(-2px);
+}
+
+/* 9) Animations */
+@keyframes fadeInDown {
+  from { opacity:0; transform: translateY(-40px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-15px); }
+}
+.btn-theme {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+}
